@@ -5,7 +5,7 @@ const mapW = 13;
 const mapH = 13;
 
 const grass = new Image();
-grass.src = "Images/Background-Grass.png";
+grass.src = "client/Images/Background-Grass.png";
 const forest = new Image();
 forest.src = "Images/Background-Forest.png";
 const hero = new Image();
