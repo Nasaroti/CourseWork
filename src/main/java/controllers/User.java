@@ -20,6 +20,7 @@ public class User {
     @Path("login")
 
     public String loginUser(@FormDataParam("Username") String Username, @FormDataParam("Password") String Password) {
+        System.out.println("Hello");
         String correctPassword = Passget(Username);
         System.out.println(correctPassword);
         try {
@@ -32,7 +33,7 @@ public class User {
 
                 JSONObject userDetails = new JSONObject();
                 userDetails.put("username", Username);
-                userDetails.put("Cookie", token);
+                userDetails.put("token", token);
                 return userDetails.toString(); //Returns the cookie
             } else {
                 return "Incorrect Username or Password";
