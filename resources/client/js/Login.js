@@ -14,8 +14,8 @@ async function trylogin() {
        if (response.hasOwnProperty("Error")) {
            alert(JSON.stringify(response));        // if it does, convert JSON object to string and alert
        } else {
-           Cookies.set("username", responseData.username);
-           Cookies.set("token", responseData.token);
+           Cookies.set("username", response.username);   // change responseData to response
+           Cookies.set("token", response.token);
            window.location.href = 'Game.html';
        }
    });
