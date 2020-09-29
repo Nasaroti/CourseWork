@@ -6,7 +6,7 @@ async function trylogin() {
     const form = document.getElementById("loginForm");
     const formData = new FormData(form);
 
-    fetch("/User/login", {mode: 'no-cors', method: 'POST', body: formData}
+    fetch("/User/login", { method: 'POST', body: formData}
    ).then(response => {
        return( response.json() );                 //now return that promise to JSON
    }).then(response => {

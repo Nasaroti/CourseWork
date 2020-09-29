@@ -15,7 +15,6 @@ public class User {
     @POST
     @Path("login")
     public String loginUser(@FormDataParam("Username") String Username, @FormDataParam("Password") String Password) {
-        System.out.println("Hello");
         String correctPassword = Passget(Username);
         System.out.println(correctPassword);
         try {
