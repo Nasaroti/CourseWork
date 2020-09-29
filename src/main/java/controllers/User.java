@@ -36,17 +36,15 @@ public class User {
                 userDetails.put("token", token);
                 return userDetails.toString(); //Returns the cookie
             } else {
-                return "Incorrect Username or Password";
-            }
+                return "{\"Error\": \"Something as gone wrong.   \"}";            }
         } catch (SQLException e) {
             System.out.print("Database error during login: " + e.getMessage());
-            return "Error - Server Side Error";
+            return  "{\"Error\": \"Something as gone wrong.   \"}";
 
         }
     }
 
-    @GET
-    @Path("get/{Username}")
+
     public String Passget(String username) {
         try {
             PreparedStatement ps = Main.db.prepareStatement("SELECT Password FROM Player WHERE Username = ?");
