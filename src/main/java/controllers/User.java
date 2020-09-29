@@ -1,13 +1,9 @@
 package controllers;
-
 import org.glassfish.jersey.media.multipart.FormDataParam;
 import org.json.simple.JSONObject;
 import server.Main;
-
-import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -18,7 +14,6 @@ public class User {
 
     @POST
     @Path("login")
-
     public String loginUser(@FormDataParam("Username") String Username, @FormDataParam("Password") String Password) {
         System.out.println("Hello");
         String correctPassword = Passget(Username);
@@ -30,20 +25,22 @@ public class User {
                 ps2.setString(1, token);
                 ps2.setString(2, Username);
                 ps2.executeUpdate();
-
                 JSONObject userDetails = new JSONObject();
                 userDetails.put("username", Username);
                 userDetails.put("token", token);
-                return userDetails.toString(); //Returns the cookie
+                System.out.println("Returning data");
+                System.out.println(userDetails.toString());
+                String toreturn = userDetails.toString();
+                System.out.println(toreturn);
+                return ( toreturn ); //Returns the cookie
             } else {
-                return "{\"Error\": \"Something as gone wrong.   \"}";            }
-        } catch (SQLException e) {
-            System.out.print("Database error during login: " + e.getMessage());
-            return  "{\"Error\": \"Something as gone wrong.   \"}";
+            return "{\"Error\": \"Something as gone wrong.   \"}";            }
+    } catch (SQLException e) {
+        System.out.print("Database error during login: " + e.getMessage());
+        return  "{\"Error\": \"Something as gone wrong.   \"}";
 
-        }
     }
-
+}
 
     public String Passget(String username) {
         try {
@@ -59,6 +56,5 @@ public class User {
             System.out.println("Database Error: " + e.getMessage());
             return "Incorrect Username or Password";
         }
-
     }
 }
