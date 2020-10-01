@@ -10,6 +10,7 @@ let leftedge = true;
 
 document.addEventListener("keypress", function(event) { //Event listener checks for keypress's
     if (event.key === "w") { //Checks what key press and changes co-ords as required
+
         yco--;
         if ((gamemap[yco][xco] === 1) || (gamemap[yco][xco] === 3) || (gamemap[yco][xco] === 5)) {
             yco++; //Checks for illegal move made and moves player co-ords back if needed

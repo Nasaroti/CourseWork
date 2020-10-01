@@ -2,8 +2,12 @@ package controllers;
 import org.glassfish.jersey.media.multipart.FormDataParam;
 import org.json.simple.JSONObject;
 import server.Main;
+
+import javax.ws.rs.CookieParam;
+import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.core.Cookie;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -15,7 +19,7 @@ public class User {
     @POST
     @Path("login")
     public String loginUser(@FormDataParam("Username") String Username, @FormDataParam("Password") String Password) {
-        String correctPassword = Passget(Username);
+        String correctPassword = passget(Username);
         System.out.println(correctPassword);
         try {
             if (Password.equals(correctPassword)) { //Compares the passwords and if the same will update the player table with the cookie
@@ -41,7 +45,7 @@ public class User {
     }
 }
 
-    public String Passget(String username) {
+    private String passget(String username) {
         try {
             PreparedStatement ps = Main.db.prepareStatement("SELECT Password FROM Player WHERE Username = ?");
             ps.setString(1, username);
@@ -55,5 +59,25 @@ public class User {
             System.out.println("Database Error: " + e.getMessage());
             return "Incorrect Username or Password";
         }
+        
     }
+
+
+    public static boolean tokenvalidate(String token){
+        try {
+            PreparedStatement ps = Main.db.prepareStatement("SELECT PlayerID FROM Player WHERE Cookie = ?");
+
+            System.out.println("token is " + token);
+
+            ps.setString(1, token);
+            ResultSet logoutResults = ps.executeQuery();
+            return logoutResults.next();   //logoutResults.next() will be true if there is a record in the ResultSet
+        } catch (Exception exception) {
+            System.out.println("Database error" + exception.getMessage());
+            return false;
+        }
+
+    }
+
+
 }

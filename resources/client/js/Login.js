@@ -6,16 +6,16 @@ async function trylogin() {
     const form = document.getElementById("loginForm");
     const formData = new FormData(form);
 
-    fetch("/User/login", {mode: 'no-cors', method: 'POST', body: formData}
-   ).then(response => {
-       return( response.json() );                 //now return that promise to JSON
-   }).then(response => {
-       if (response.hasOwnProperty("Error")) {
-           alert(JSON.stringify(response));        // if it does, convert JSON object to string and alert
-       } else {
-           Cookies.set("username", response.username);
-           Cookies.set("token", response.token);
-           window.location.href = 'Game.html';
-       }
-   });
+    fetch("/User/login", { method: 'POST', body: formData}
+    ).then(response => {
+        return( response.json() );                 //now return that promise to JSON
+}).then(response => {
+        if (response.hasOwnProperty("Error")) {
+        alert(JSON.stringify(response));        // if it does, convert JSON object to string and alert
+    } else {
+        Cookies.set("username", response.username);
+        Cookies.set("token", response.token);
+        window.location.href = 'Game.html';
+    }
+});
 }
