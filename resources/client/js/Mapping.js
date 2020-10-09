@@ -8,27 +8,23 @@ let xco = 3;
 let yco = 3;
 
 const grass = new Image();  //Gets the images from the server
-grass.src = "client/Images/Background-Grass.png";
+grass.src = "Images/Background-Grass.png";
 const forest = new Image();
-forest.src = "client/Images/Background-Forest.png";
+forest.src = "Images/Background-Forest.png";
 const hero = new Image();
-hero.src = "client/Images/Hero-Knight.png";
-const chest = new Image();
-chest.src = "client/Images/Item-Chest.png";
-const key = new Image();
-key.src = "client/Images/Item-Key.png";
+hero.src = "Images/Hero-Knight.png";
 const gatec = new Image();
-gatec.src = "client/Images/Background-Gate.png";
+gatec.src = "Images/Background-Gate.png";
 const gateo = new Image();
-gateo.src = "client/Images/Background-OpenGate.png";
+gateo.src = "Images/Background-OpenGate.png";
 const mfloor = new Image();
-mfloor.src = "client/Images/Background-MountainsFloor.png";
+mfloor.src = "Images/Background-MountainsFloor.png";
 const mountain = new Image();
-mountain.src = "client/Images/Background-Mountains.png";
+mountain.src = "Images/Background-Mountains.png";
 const castle = new Image();
-castle.src = "client/Images/Background-Castle.png"
+castle.src = "Images/Background-Castle.png";
 const dgrass = new Image();
-dgrass.src = "client/Images/Background-DarkGrass.png";
+dgrass.src = "Images/Background-DarkGrass.png";
 
 tile = [grass, forest, forest, gatec, gateo, mountain, mfloor, castle, dgrass];
 
