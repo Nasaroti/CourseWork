@@ -1,6 +1,6 @@
 let ctx = null;
-const tileW = 32;
-const tileH = 32;
+var tileW = 32;
+var tileH = 32;
 const mapW = 13;
 const mapH = 13;
 
@@ -45,8 +45,9 @@ let gamemap = [
 ];
 
 window.onload = function() {  //Ensures that the canvas has been found
+    document.getElementById("textContainer").style.display = "none";
     ctx = document.getElementById("game").getContext("2d");
-    drawGame();
+    resize();
 }
 
 function drawGame() {
@@ -60,8 +61,29 @@ function drawGame() {
         }
     }
 
-    ctx.drawImage(hero, xco * 32, yco * 32, 32, 32); //Draws the main char
+    ctx.drawImage(hero, xco * tileW, yco * tileH, tileW, tileH); //Draws the main char
 
+}
+
+window.addEventListener('resize', resize);
+
+function resize() {
+    var newwidth = window.innerWidth;
+    newwidth = newwidth / 2;
+    if (document.getElementById("game").width !== newwidth) {
+        document.getElementById("game").width = newwidth;
+        document.getElementById("game").height = newwidth;
+        tileW = newwidth / mapW;
+        tileH = newwidth / mapH;
+    }
+    drawGame();
+}
+
+function showText(){
+    document.getElementById("textContainer").style.display = "block";
+}
+function hideText(){
+    document.getElementById("textContainer").style.display = "none";
 }
 
 function changemap(map){
