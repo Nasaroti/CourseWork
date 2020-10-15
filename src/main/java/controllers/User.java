@@ -37,10 +37,10 @@ public class User {
                 System.out.println(toreturn);
                 return ( toreturn ); //Returns the cookie
             } else {
-            return "{\"Error\": \"Something as gone wrong.   \"}";            }
+            return "{\"Error\": \"Something has gone wrong.   \"}";            }
     } catch (SQLException e) {
         System.out.print("Database error during login: " + e.getMessage());
-        return  "{\"Error\": \"Something as gone wrong.   \"}";
+        return  "{\"Error\": \"Something has gone wrong.   \"}";
 
     }
 }
