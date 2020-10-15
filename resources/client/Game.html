@@ -4,6 +4,7 @@
 
     <script src="js/Mapping.js"></script>
     <script src="js/Movement.js"></script>
+    <link href="css/Game.css" rel="stylesheet" type="text/css" />
     <meta charset="UTF-8">
     <title>Slash</title>
 </head>
@@ -11,11 +12,23 @@
 
 <canvas id="game" width = 416 height = 416></canvas>
 
-<div id="hoverOver" onmouseenter="showText()" onmouseleave="hideText()"> How do I play? </div>
+<form>
+    <div id="hoverOver" onmouseenter="showText()" onmouseleave="hideText()"> How do I play? </div>
 
-<div id="textContainer">
-    <p> Use the W,A,S and D keys to move. You can walk to the edge of an area to move into a new one. Your overall goal is to reach the castle of the dark lord and defeat him. Gather gear and slash enemies on the way!</p>
-</div>
+    <div id="textContainer">
+        <br>
+        Use the W,A,S and D keys to move. You can walk to the edge of an area to move into a new one. Your overall goal is to reach the castle of the dark lord and defeat him. Gather gear and slash enemies on the way!
+    </div>
+
+    <br>
+
+    <input type="radio" id="knight" name="character" value="knight"  onclick="changeKnight()" checked = checked>
+    <label for="knight">Knight</label><br>
+    <input type="radio" id="reaper" name="character" value="reaper"  onclick="changeReaper()">
+    <label for="reaper">Reaper</label><br>
+</form>
+
+
 
 </body>
 </html>

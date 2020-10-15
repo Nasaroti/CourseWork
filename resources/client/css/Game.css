@@ -1,0 +1,33 @@
+canvas{
+    float: left;
+}
+
+form{
+    padding-left: 0.5%;
+    width: 45%;
+    word-wrap: break-word;
+    float: left;
+}
+
+@media screen and (min-width: 401px) and (max-width: 600px) {
+    div.example {
+        font-size: 30px;
+    }
+}
+
+@media screen and (max-width: 400px) {
+    form {
+        font-size: 10px;
+    }
+}
+
+@media screen and (min-width: 601px) {
+    form {
+        font-size: 125%;
+    }
+}
+
+body{
+    background-color: #EFEFEF;
+}
+

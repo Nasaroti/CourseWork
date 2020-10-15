@@ -1,6 +1,6 @@
 let ctx = null;
-var tileW = 32;
-var tileH = 32;
+let tileW = 32;
+let tileH = 32;
 const mapW = 13;
 const mapH = 13;
 
@@ -13,6 +13,8 @@ const forest = new Image();
 forest.src = "Images/Background-Forest.png";
 const hero = new Image();
 hero.src = "Images/Hero-Knight.png";
+const hero2 = new Image();
+hero2.src = "Images/Hero-Reaper.png";
 const gatec = new Image();
 gatec.src = "Images/Background-Gate.png";
 const gateo = new Image();
@@ -45,6 +47,7 @@ let gamemap = [
 ];
 
 window.onload = function() {  //Ensures that the canvas has been found
+
     document.getElementById("textContainer").style.display = "none";
     ctx = document.getElementById("game").getContext("2d");
     resize();
@@ -84,6 +87,16 @@ function showText(){
 }
 function hideText(){
     document.getElementById("textContainer").style.display = "none";
+}
+
+function changeKnight() {
+    hero.src = "Images/Hero-Knight.png";
+    drawGame();
+}
+
+function changeReaper() {
+    hero.src = "Images/Hero-Reaper.png";
+    drawGame();
 }
 
 function changemap(map){
