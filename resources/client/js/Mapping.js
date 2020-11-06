@@ -4,8 +4,8 @@ let tileH = 32;
 const mapW = 13;
 const mapH = 13;
 
-let xco = 3;
-let yco = 3;
+let xco;
+let yco;
 
 const grass = new Image();  //Gets the images from the server
 grass.src = "Images/Background-Grass.png";
@@ -46,17 +46,34 @@ let gamemap = [
     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
 ];
 
+function stateChange(newState) {
+    setTimeout(function () {
+        if (newState === -1) {
+            changemap((mapmain[mapyco][mapxco]));
+
+            document.getElementById("textContainer").style.display = "none";
+            ctx = document.getElementById("game").getContext("2d");
+            resize();
+        }
+    }, 25);
+}
+
 window.onload = function() {  //Ensures that the canvas has been found
 
-    document.getElementById("textContainer").style.display = "none";
-    ctx = document.getElementById("game").getContext("2d");
-    resize();
+    LoadGame();
+    stateChange(-1);
 }
 
 function drawGame() {
     if (ctx == null) {
         return;
     }
+
+    console.log(xco);
+    console.log(yco);
+    console.log(mapxco);
+    console.log(mapyco);
+
     for (let y = 0; y < mapH; y++) { //Loops through the map to draw every tile based on the current array
         for (let x = 0; x < mapW; x++) {
 

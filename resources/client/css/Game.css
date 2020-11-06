@@ -2,7 +2,7 @@ canvas{
     float: left;
 }
 
-form{
+div.statsmain{
     padding-left: 0.5%;
     width: 45%;
     word-wrap: break-word;

@@ -1,5 +1,6 @@
-var mapxco = 0;
-var mapyco = 1;
+let mapxco;
+let mapyco;
+
 var mapmain = [
     [2,3],
     [1,4]
