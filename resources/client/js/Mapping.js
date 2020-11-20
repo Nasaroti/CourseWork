@@ -27,6 +27,8 @@ const castle = new Image();
 castle.src = "Images/Background-Castle.png";
 const dgrass = new Image();
 dgrass.src = "Images/Background-DarkGrass.png";
+const ladybird = new Image();
+ladybird.src = "Images/Enemy-Ladybird.png";
 
 tile = [grass, forest, forest, gatec, gateo, mountain, mfloor, castle, dgrass];
 

@@ -18,7 +18,13 @@ public class Position {
     @GET
     @Path("get")
     public String Positionget(@CookieParam("token") Cookie tokencookie) throws SQLException {
-        String cookie = tokencookie.getValue(); //Gets value out of the cookie
+        String cookie;
+        if(tokencookie == null) {
+            return "{\"Error\": \"Please sign in.\"}";
+        } else {
+            cookie = tokencookie.getValue();
+        }
+
         if (User.tokenvalidate(cookie))   //Calls the validate token from User.java
         {
             PreparedStatement ps = Main.db.prepareStatement("SELECT PlayerID FROM Player WHERE Cookie = ?");

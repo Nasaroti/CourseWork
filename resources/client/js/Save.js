@@ -21,7 +21,9 @@ function LoadGame() {
         return response.json();                 //return response to JSON
     }).then(response => {
         if (response.hasOwnProperty("Error")) { //checks if response from server has a key "Error"
-            alert(JSON.stringify(response));    // if it does, convert JSON object to string and alert
+            alert(JSON.stringify(response));
+
+            window.location.href = 'Login.html';// if it does, convert JSON object to string and alert then return
         } else {
             setcoordinate(response);
         }

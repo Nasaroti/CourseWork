@@ -7,9 +7,23 @@ var mapmain = [
 ];
 
 let leftedge = true;
+let combat = false;
 
+let storagemap;
+let storagexco;
+let storageyco;
 
 document.addEventListener("keypress", function(event) { //Event listener checks for keypress's
+    if (combat === true)
+    {
+        combatmove();
+    } else {
+        movement();
+    }
+
+})
+
+function movement() {
     if (event.key === "w") { //Checks what key press and changes co-ords as required
 
         yco--;
@@ -61,6 +75,32 @@ document.addEventListener("keypress", function(event) { //Event listener checks 
         }
     }
 
-
+    let randnum = Math.floor((Math.random() * 100) + 1); //Generates a random number between 1 and 100
+    console.log(randnum);
+    if (randnum >= 98) //Gives roughly a 3% change of combat on any given movement
+    {
+        combat = true;
+        storagemap = gamemap;
+        storagexco = xco;
+        storageyco = yco;
+        xco = 6;
+        yco = 10;
+        gamemap = [
+            [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+            [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 8, 0, 1],
+            [1, 0, 8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+            [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+            [1, 0, 0, 0, 0, 0, 0, 8, 0, 0, 0, 0, 1],
+            [1, 0, 0, 8, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+            [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+            [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 8, 1],
+            [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+            [1, 0, 0, 0, 0, 0, 0, 0, 8, 0, 0, 0, 1],
+            [1, 0, 8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+            [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+            [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+        ];
+    }
     drawGame();
-})
+    if(combat){drawEnemy();}
+}
