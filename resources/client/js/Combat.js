@@ -6,10 +6,12 @@ let moved = false;
 let direction = 1;
 
 let enemyhealth = 5;
+let playerhealth = 3;
 
 let carryon = false;
 let Allowmove = true;
-let attacked = false;
+
+let changeturn=true;
 
 let attackrange = 2;
 
@@ -21,6 +23,15 @@ const attack3 = new Image();
 attack3.src = "Images/Attack3.png";
 const attack4 = new Image();
 attack4.src = "Images/Attack4.png";
+
+const pheart = new Image();
+pheart.src = "Images/UI-PHeart.png"
+const eheart = new Image();
+eheart.src = "Images/UI-EHeart.png"
+const eattack = new Image();
+eattack.src = "Images/UI-EAttack.png"
+const foot = new Image();
+foot.src = "Images/UI-Foot.png"
 
 attackanim = [attack1, attack2, attack3, attack4];
 
@@ -103,11 +114,17 @@ function combatmove() {
                         attackxco += 1;
                         break;
                 }
+                if(enemymap[attackxco][attackyco] === 1)
+                {
+                    enemyhealth -= 1;
+                }
                 Attackanimation(attackxco, attackyco);
             }
             movecount = 0;
-            attacked = true;
+        } else if (event.key === "f") {
 
+        } else {
+            moved = false;
         }
 
         if (moved) {
@@ -118,36 +135,115 @@ function combatmove() {
             Allowmove = false;
         }
 
-        if (attacked) {
-            enemyTurn();
-        }
-
         drawGame();
         drawEnemy();
     }
 }
 
-function enemyTurn()
-{
-    if (enemyhealth <= 0) {endCombat(); }
+function enemyTurn() {
+    if (enemyhealth <= 0) {
+        endCombat();
+        return;
+    }
+    if(enemymap[yco][xco] === 2) {playerhealth -= 1;}
+    if(playerhealth <= 0) {endCombat(); return;}
+    mapreset();
+
+    enemyAttack();
     movecount = movecountmax;
     drawGame();
     drawEnemy();
-    attacked = false;
     Allowmove = true;
+    carryon = false;
+}
+
+function enemyAttack() { //Sets the squares for the enemy attack
+    let randnum = Math.floor((Math.random() * 10) + 1); //Generates a random number from 1 to 10
+    console.log(randnum);
+    if (randnum < 3)
+    {
+        updateMap(yco,xco);
+        updateMap(yco+1,xco);
+        updateMap(yco-1,xco);
+        updateMap(yco,xco+1);
+        updateMap(yco,xco-1);
+    }
+    if (randnum === 3 || randnum === 4)
+    {
+        updateMap(yco,xco);
+        updateMap(yco+1,xco);
+        updateMap(yco-1,xco);
+        updateMap(yco,xco+1);
+        updateMap(yco,xco-1);
+        updateMap(yco+1,xco + 1);
+        updateMap(yco-1,xco + 1);
+        updateMap(yco + 1,xco - 1);
+        updateMap(yco - 1,xco - 1);
+    }
+    if (randnum === 6 || randnum === 7)
+    {
+        updateMap(yco + 2,xco);
+        updateMap(yco + 1,xco);
+        updateMap(yco,xco);
+        updateMap(yco - 1,xco);
+        updateMap(yco - 2,xco);
+    }
+    if (randnum === 8 || randnum === 9)
+    {
+        updateMap(yco,xco + 2);
+        updateMap(yco,xco + 1);
+        updateMap(yco,xco);
+        updateMap(yco,xco - 1);
+        updateMap(yco,xco - 2);
+    }
+    if (randnum === 10 || randnum === 5)
+    {
+        for (let i = 0; i < 30; i++) //Loops this attack so that many square are attacked
+        {
+            let randx = Math.floor(Math.random() * (11) + 1); //Generates random co-ordinate for a attack square
+            let randy = Math.floor(Math.random() * (11) + 1);
+            updateMap(randy,randx);
+        }
+
+    }
 
 }
 
-function endCombat()
+function mapreset() {
+    for (let y = 0; y < mapH; y++) { //Loops through the map to check if there is a two and replaces them if there is
+        for (let x = 0; x < mapW; x++) {
+            if (enemymap[y][x] === 2) {
+                enemymap[y][x] = 0;
+            }
+        }
+    }
+}
+
+function updateMap(yco, xco )//Checks the squares are not where the enemy is
 {
-    attacked = false;
+    if (!(enemymap[yco][xco] === 1))
+    {
+        enemymap[yco][xco] = 2;
+    }
+}
+
+function endCombat(){
     Allowmove = false;
-    movecount = movecountmax;
     gamemap = storagemap;
     combat = false;
     xco = storagexco;
     yco = storageyco;
     drawGame();
+    reset();
+}
+
+function reset() { //Resets the variables to the beginning of combat
+    movecount = movecountmax;
+    enemyhealth = 5;
+    playerhealth = 3;
+    carryon = false;
+    Allowmove = true;
+    mapreset();
 }
 
 function drawEnemy()
@@ -155,8 +251,25 @@ function drawEnemy()
     for (let y = 0; y < mapH; y++) { //Loops through the map to draw every tile based on the current array
         for (let x = 0; x < mapW; x++) {
             if(enemymap[y][x] === 1)
-            ctx.drawImage(ladybird, x * tileW, y * tileH, tileW, tileH);
+                ctx.drawImage(ladybird, x * tileW, y * tileH, tileW, tileH);
+            if(enemymap[y][x] === 2)
+                ctx.drawImage(eattack, x * tileW, y * tileH, tileW, tileH);
         }
+    }
+
+    for (let y = 0; y < enemyhealth; y++) //Draws the enemy health bar
+    {
+        ctx.drawImage(eheart, (12-y) * tileW, 0 * tileH, tileW, tileH);
+    }
+
+    for (let y = 0; y < playerhealth; y++) //Draws the player health bar
+    {
+        ctx.drawImage(pheart, (y) * tileW, 0 * tileH, tileW, tileH);
+    }
+
+    for (let y = 0; y < movecount; y++) //Draws the player health bar
+    {
+        ctx.drawImage(foot, 0 * tileW, (12-y) * tileH, tileW, tileH);
     }
 }
 
@@ -174,8 +287,15 @@ function Attackanimation(attackxco, attackyco) {
             drawEnemy();
         }, timing); //Calls the function to clear the board, 1ms before the next attack frame
     }
-    setTimeout(function () {
-        carryon = false;
-    }, timing); //Calls the function to clear the board, 1ms before the next attack frame
+    timing += 1;
+    if (changeturn === true)
+    {
+        changeturn = false;
+        setTimeout(function () {
+            enemyTurn();
+            changeturn = true;
+        }, timing); //Calls the function to clear the board, 1ms before the next attack frame
+    }
+
 
 }

@@ -71,11 +71,6 @@ function drawGame() {
         return;
     }
 
-    console.log(xco);
-    console.log(yco);
-    console.log(mapxco);
-    console.log(mapyco);
-
     for (let y = 0; y < mapH; y++) { //Loops through the map to draw every tile based on the current array
         for (let x = 0; x < mapW; x++) {
 
@@ -99,6 +94,7 @@ function resize() {
         tileH = newwidth / mapH;
     }
     drawGame();
+    if (combat) { drawEnemy(); }
 }
 
 function showText(){
@@ -111,11 +107,13 @@ function hideText(){
 function changeKnight() {
     hero.src = "Images/Hero-Knight.png";
     drawGame();
+    if (combat) { drawEnemy(); }
 }
 
 function changeReaper() {
     hero.src = "Images/Hero-Reaper.png";
     drawGame();
+    if (combat) { drawEnemy(); }
 }
 
 function changemap(map){
