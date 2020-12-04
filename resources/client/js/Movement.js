@@ -21,7 +21,7 @@ document.addEventListener("keypress", function(event) { //Event listener checks 
         movement();
     }
 
-})
+});
 
 function movement() {
     if (event.key === "w") { //Checks what key press and changes co-ords as required

@@ -15,6 +15,8 @@ let changeturn=true;
 
 let attackrange = 2;
 
+let enemymove = 5;
+
 const attack1 = new Image();  //Gets the images from the server
 attack1.src = "Images/Attack1.png";
 const attack2 = new Image();
@@ -36,19 +38,19 @@ foot.src = "Images/UI-Foot.png"
 attackanim = [attack1, attack2, attack3, attack4];
 
 let enemymap = [
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    [3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
+    [3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3],
+    [3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3],
+    [3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3],
+    [3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3],
+    [3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3],
+    [3, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 3],
+    [3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3],
+    [3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3],
+    [3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3],
+    [3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3],
+    [3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3],
+    [3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3]
 ];
 
 function combatmove() {
@@ -114,7 +116,7 @@ function combatmove() {
                         attackxco += 1;
                         break;
                 }
-                if(enemymap[attackxco][attackyco] === 1)
+                if(enemymap[attackyco][attackxco] === 1)
                 {
                     enemyhealth -= 1;
                 }
@@ -149,12 +151,69 @@ function enemyTurn() {
     if(playerhealth <= 0) {endCombat(); return;}
     mapreset();
 
+    enemyMove();
+
     enemyAttack();
+
     movecount = movecountmax;
     drawGame();
     drawEnemy();
     Allowmove = true;
     carryon = false;
+}
+
+function enemyMove()
+{
+    let tempex; // Creates temporary variables for the enemys x and y coordinates
+    let tempey;
+    for (let y = 0; y < mapH; y++) { //Loops through the map to check for the enemy
+        for (let x = 0; x < mapW; x++) {
+            if (enemymap[y][x] === 1) {
+                enemymap[y][x] = 0; //Sets the enemy location to get rid of the enemy
+                tempey = y; //Stores the enemy location
+                tempex = x;
+            }
+        }
+    }
+    for (let i = 0; i < enemymove; i++)
+    {
+        let randnum = Math.floor((Math.random() * 4)); //Generates a random number from 0 to 3
+        console.log("Move: " + randnum);
+        if (randnum === 0) { //Checks what number is generated and changes co-ords as required
+
+            tempey--;
+            if (enemymap[tempey][tempex] === 3 || ( (tempex === xco) && (tempey === yco))) {
+                tempey++; //Checks for illegal move made and moves enemy co-ords back if needed
+                enemymove += 1; //Increases the number of moves the enemy can use
+            }
+
+        } else if (randnum === 1) {
+
+            tempey++;
+            if (enemymap[tempey][tempex] === 3 || ( (tempex === xco) && (tempey === yco))) {
+                tempey--;
+                enemymove += 1;
+            }
+
+        } else if (randnum === 2) {
+
+            tempex--;
+            if (enemymap[tempey][tempex] === 3 || ( (tempex === xco) && (tempey === yco))) {
+                tempex++;
+                enemymove += 1;
+            }
+
+        } else if (randnum === 3) {
+
+            tempex++;
+            if (enemymap[tempey][tempex] === 3 || ( (tempex === xco) && (tempey === yco))) {
+                tempex--;
+                enemymove += 1;
+            }
+        }
+    }
+    enemymove = 5;
+    enemymap[tempey][tempex] = 1; // Sets the players location
 }
 
 function enemyAttack() { //Sets the squares for the enemy attack
@@ -221,7 +280,7 @@ function mapreset() {
 
 function updateMap(yco, xco )//Checks the squares are not where the enemy is
 {
-    if (!(enemymap[yco][xco] === 1))
+    if (!((enemymap[yco][xco] === 1) || (enemymap[yco][xco] === 3)))
     {
         enemymap[yco][xco] = 2;
     }
@@ -243,7 +302,21 @@ function reset() { //Resets the variables to the beginning of combat
     playerhealth = 3;
     carryon = false;
     Allowmove = true;
-    mapreset();
+    enemymap = [
+        [3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
+        [3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3],
+        [3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3],
+        [3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3],
+        [3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3],
+        [3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3],
+        [3, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 3],
+        [3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3],
+        [3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3],
+        [3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3],
+        [3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3],
+        [3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3],
+        [3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3]
+    ];
 }
 
 function drawEnemy()
