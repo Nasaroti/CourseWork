@@ -24,6 +24,7 @@ document.addEventListener("keypress", function(event) { //Event listener checks 
 });
 
 function movement() {
+    console.log(gamemap);
     if (event.key === "w") { //Checks what key press and changes co-ords as required
 
         yco--;
