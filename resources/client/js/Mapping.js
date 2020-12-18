@@ -11,14 +11,6 @@ const grass = new Image();  //Gets the images from the server
 grass.src = "Images/Background-Grass.png";
 const forest = new Image();
 forest.src = "Images/Background-Forest.png";
-const hero = new Image();
-hero.src = "Images/Hero-Knight.png";
-const hero2 = new Image();
-hero2.src = "Images/Hero-Reaper.png";
-const gatec = new Image();
-gatec.src = "Images/Background-Gate.png";
-const gateo = new Image();
-gateo.src = "Images/Background-OpenGate.png";
 const mfloor = new Image();
 mfloor.src = "Images/Background-MountainsFloor.png";
 const mountain = new Image();
@@ -27,8 +19,33 @@ const castle = new Image();
 castle.src = "Images/Background-Castle.png";
 const dgrass = new Image();
 dgrass.src = "Images/Background-DarkGrass.png";
+
+const hero = new Image();
+hero.src = "Images/Hero-Knight.png";
+const hero2 = new Image();
+hero2.src = "Images/Hero-Reaper.png";
+
 const ladybird = new Image();
 ladybird.src = "Images/Enemy-Ladybird.png";
+const wyrm = new Image();
+wyrm.src = "Images/Enemy-Wyrm.png";
+
+const chest = new Image();
+chest.src = "Images/Item-Chest.png";
+
+const gatec = new Image();
+gatec.src = "Images/Background-Gate.png";
+const gateo = new Image();
+gateo.src = "Images/Background-OpenGate.png";
+const key1 = new Image();
+key1.src = "Images/Item-Key.png";
+
+const gatecr = new Image();
+gatecr.src = "Images/Background-GateR.png";
+const gateor = new Image();
+gateor.src = "Images/Background-OpenGateR.png";
+const key2 = new Image();
+key2.src = "Images/Item-KeyR.png";
 
 tile = [grass, forest, forest, gatec, gateo, mountain, mfloor, castle, dgrass];
 
@@ -79,6 +96,7 @@ function drawGame() {
     }
 
     ctx.drawImage(hero, xco * tileW, yco * tileH, tileW, tileH); //Draws the main char
+    if(!combat){ checkmap(mapmain[mapyco][mapxco]); }
 
 }
 
@@ -102,6 +120,19 @@ function showText(){
 }
 function hideText(){
     document.getElementById("textContainer").style.display = "none";
+}
+
+function showStats(){
+    document.getElementById("StatsContainer").innerHTML =
+        "Attack Power: " + damage +
+        "<br> Attack Range: " + attackrange +
+        "<br> Move Distance: " + movecountmax +
+        "<br> Max Health: " + playerhealthmax +
+        "<br> Combat Percent: " + (100 - combatchance);
+    document.getElementById("StatsContainer").style.display = "block";
+}
+function hideStats(){
+    document.getElementById("StatsContainer").style.display = "none";
 }
 
 function changeKnight() {
@@ -144,7 +175,7 @@ function toArray(wholestring)
         for(let j = 0; j < mapH; j++)
         {
             let split2 = split1[i].split(","); //Splits by all of the commas for each of the ; splits
-            gamemap[i][j] = split2[j];
+            gamemap[i][j] = parseInt( split2[j] );
         }
 
     }

@@ -1,9 +1,16 @@
 let mapxco;
 let mapyco;
 
+let combatchance = 97;
+
 var mapmain = [
-    [2,3],
-    [1,4]
+    [17, 18, 19, 39, 38, 37],
+    [14, 15, 16, 41, 40, 36],
+    [11, 12, 13, 42, 34, 35],
+    [20, 10, 21,22 ,23, 24],
+    [2, 3, 7, 27, 25, 26],
+    [1, 4, 8, 28, 33, 29],
+    [5, 6, 9, 30, 32, 31]
 ];
 
 let leftedge = true;
@@ -14,8 +21,10 @@ let storagexco;
 let storageyco;
 
 document.addEventListener("keypress", function(event) { //Event listener checks for keypress's
-    if (combat === true)
+    if (boss1fight === true)
     {
+        combatmoveboss1();
+    } else if (combat === true) {
         combatmove();
     } else {
         movement();
@@ -24,12 +33,15 @@ document.addEventListener("keypress", function(event) { //Event listener checks 
 });
 
 function movement() {
-    console.log(gamemap);
     if (event.key === "w") { //Checks what key press and changes co-ords as required
 
         yco--;
+        console.log( gamemap[yco][xco] );
+        console.log( yco );
+
         if ((gamemap[yco][xco] === 1) || (gamemap[yco][xco] === 3) || (gamemap[yco][xco] === 5)) {
             yco++; //Checks for illegal move made and moves player co-ords back if needed
+            console.log(yco);
         }
 
     } else if (event.key === "a") {
@@ -50,7 +62,6 @@ function movement() {
             xco--;
         }
     }
-
 
     if (leftedge === false) {
         if (xco === 2 || xco === 10 || yco === 2 || yco === 10) {
@@ -78,7 +89,7 @@ function movement() {
 
     let randnum = Math.floor((Math.random() * 100) + 1); //Generates a random number between 1 and 100
     console.log(randnum);
-    if (randnum >= 98) //Gives roughly a 3% change of combat on any given movement
+    if (randnum >= combatchance) //Gives roughly a 3% change of combat on any given movement
     {
         combat = true;
         storagemap = gamemap;
@@ -103,5 +114,5 @@ function movement() {
         ];
     }
     drawGame();
-    if(combat){drawEnemy();}
+    if(combat && !boss1fight){drawEnemy();}
 }

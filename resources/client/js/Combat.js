@@ -1,5 +1,5 @@
 let movecount = 3;
-const movecountmax = 3;
+let movecountmax = 3;
 
 let moved = false;
 
@@ -7,6 +7,7 @@ let direction = 1;
 
 let enemyhealth = 5;
 let playerhealth = 3;
+let playerhealthmax = 3;
 
 let carryon = false;
 let Allowmove = true;
@@ -14,6 +15,7 @@ let Allowmove = true;
 let changeturn=true;
 
 let attackrange = 2;
+let damage = 1;
 
 let enemymove = 5;
 
@@ -118,7 +120,7 @@ function combatmove() {
                 }
                 if(enemymap[attackyco][attackxco] === 1)
                 {
-                    enemyhealth -= 1;
+                    enemyhealth -= damage;
                 }
                 Attackanimation(attackxco, attackyco);
             }
@@ -148,7 +150,7 @@ function enemyTurn() {
         return;
     }
     if(enemymap[yco][xco] === 2) {playerhealth -= 1;}
-    if(playerhealth <= 0) {endCombat(); return;}
+    if(playerhealth <= 0) {window.location.href = 'Game.html';}
     mapreset();
 
     enemyMove();
@@ -290,6 +292,7 @@ function endCombat(){
     Allowmove = false;
     gamemap = storagemap;
     combat = false;
+    boss1fight = false;
     xco = storagexco;
     yco = storageyco;
     drawGame();
@@ -299,7 +302,7 @@ function endCombat(){
 function reset() { //Resets the variables to the beginning of combat
     movecount = movecountmax;
     enemyhealth = 5;
-    playerhealth = 3;
+    playerhealth = playerhealthmax;
     carryon = false;
     Allowmove = true;
     enemymap = [

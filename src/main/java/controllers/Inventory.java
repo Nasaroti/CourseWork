@@ -52,17 +52,16 @@ public class Inventory {
             return response.toString();
 
         }
-        return "Error";
+        return "{\"Error\": \"Please sign in.\"}";
     }
 
     @POST
     @Path("update")
-    public void Inventoryupdate(@CookieParam("token") Cookie tokencookie, @FormDataParam("items") String items) throws SQLException {
-
-       String[] itemsarray = items.split(",");
+    public void Inventoryupdate(@CookieParam("token") Cookie tokencookie, @FormDataParam("items") String items) throws SQLException { System.out.println("Calling Position/update");
+        System.out.println("Calling Inventory/update");
+        String[] itemsarray = items.split(",");
 
         String cookie = tokencookie.getValue(); //Gets value out of the cookie
-        System.out.println("Calling Position/update");
         if (User.tokenvalidate(cookie))   //Calls the validate token from User.java
         {
             PreparedStatement ps = Main.db.prepareStatement("SELECT PlayerID FROM Player WHERE Cookie = ?");
@@ -77,17 +76,20 @@ public class Inventory {
             ps2.execute();
             System.out.println("Inventory Cleared");
 
-            for (int i = 1; i < itemsarray.length; i++)
-            {
-                PreparedStatement ps3 = Main.db.prepareStatement("SELECT ItemID FROM Item WHERE Itemname = ?");
-                ps2.setString(1, itemsarray[i]);
-                ResultSet results2 = ps3.executeQuery();
-                int itemid = results2.getInt(1);
+            for (String s : itemsarray) {
+                if (!(s.equals("")))
+                {
+                    PreparedStatement ps3 = Main.db.prepareStatement("SELECT ItemID FROM Item WHERE Itemname = ?");
+                    ps3.setString(1, s);
+                    ResultSet results2 = ps3.executeQuery();
+                    int itemid = results2.getInt(1);
 
-                PreparedStatement ps4 = Main.db.prepareStatement("INSERT INTO Inventory (PlayerID, ItemID) VALUES (?, ?)");
-                ps4.setInt(1, PlayerID);
-                ps4.setInt(2, itemid);
-                ps4.execute();
+                    PreparedStatement ps4 = Main.db.prepareStatement("INSERT INTO Inventory (PlayerID, ItemID) VALUES (?, ?)");
+                    ps4.setInt(1, PlayerID);
+                    ps4.setInt(2, itemid);
+                    ps4.execute();
+                }
+
             }
 
         }

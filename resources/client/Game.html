@@ -8,6 +8,8 @@
     <script src="js/Logout.js"></script>
     <script src="js/Save.js"></script>
     <script src="js/Combat.js"></script>
+    <script src="js/Boss1.js"></script>
+    <script src="js/FloorItems.js"></script>
     <link href="css/Game.css" rel="stylesheet" type="text/css" />
     <meta charset="UTF-8">
     <title>Slash</title>
@@ -16,20 +18,36 @@
 
 <canvas id="game" width = 416 height = 416></canvas>
 
+    You can hover over text to find out more information
+<br> <br>
+
 <div class="statsmain">
     <div id="hoverOver" onmouseenter="showText()" onmouseleave="hideText()"> How do I play? </div>
 
     <div id="textContainer">
         <br>
-        Use the W,A,S and D keys to move. You can walk to the edge of an area to move into a new one. Your overall goal is to reach the castle of the dark lord and defeat him. Gather gear and slash enemies on the way!
+        General: Use the W,A,S and D keys to move. You can walk to the edge of an area to move into a new one. Your overall goal is to reach the castle of the dark lord and defeat him. Gather gear and slash enemies on the way!
+        <br> <br>
+        Combat: When in combat use the W,A,S and D keys to move a certain number of spaces as represented by the boot icon. You can press F to skip a turn. Press SPACE to attack in front of you, ending your turn, and avoid the enemies attacks shown by red box's on the floor.
     </div>
 
     <br>
 
+
+    Choose your icon: <br>
     <input type="radio" id="knight" name="character" value="knight"  onclick="changeKnight()" checked = checked>
     <label for="knight">Knight</label><br>
     <input type="radio" id="reaper" name="character" value="reaper"  onclick="changeReaper()">
     <label for="reaper">Reaper</label><br>
+
+    <br>
+
+    <div id="hoverStats" onmouseenter="showStats()" onmouseleave="hideStats()"> Stats </div>
+
+    <div id="StatsContainer">
+        <br>
+
+    </div>
 
     <br>
 
