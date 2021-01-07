@@ -52,6 +52,16 @@ function Save() {
                 savestring = savestring + "Boss1,";
             }
         }
+        if (1 === 1) //CharSave
+        {
+            if( hero.src === "http://localhost:8081/client/Images/Hero-Knight.png")
+            {
+                savestring = savestring + "Sword,";
+            }
+            if (hero.src === "http://localhost:8081/client/Images/Hero-Reaper.png"){
+                savestring = savestring + "Scythe,";
+            }
+        }
 
 
         let formData2 = new FormData();
@@ -119,5 +129,7 @@ function setinv(data){
         if(item.Item === "Boots") { movecountmax += 1; movecount += 1; boots = 1;}
         if(item.Item === "Visor") { combatchance += 1; visor =1;}
         if(item.Item === "Boss1") { boss1 = 2;}
+        if(item.Item === "Sword") { hero.src = "Images/Hero-Knight.png";}
+        if(item.Item === "Scythe") { hero.src = "Images/Hero-Reaper.png";}
     }
 }

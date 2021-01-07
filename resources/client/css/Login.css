@@ -37,3 +37,9 @@ img{
     90% { transform: scale(1.01,1.01) rotate(1deg); }
     100% { transform: scale(1,1) rotate(0deg); }
 }
+
+@media (prefers-reduced-motion) {
+    img{
+
+    }
+}
